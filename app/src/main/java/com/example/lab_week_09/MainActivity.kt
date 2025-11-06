@@ -53,10 +53,10 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     //We use Modifier.fillMaxSize() to make the surface fill the whole screen
-                            modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     //We use MaterialTheme.colorScheme.background to get the background color
-                            //and set it as the color of the surface
-                            color = MaterialTheme.colorScheme.background
+                    //and set it as the color of the surface
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
                     App(
@@ -113,8 +113,11 @@ fun Home(
         inputField.value,
         { input -> inputField.value = inputField.value.copy(name = input) },
         {
-            listData.add(inputField.value)
-            inputField.value = Student("")
+            // FIX: Check if the input name is not blank before adding it to the list
+            if (inputField.value.name.isNotBlank()) {
+                listData.add(inputField.value)
+                inputField.value = Student("")
+            }
         },
         { navigateFromHomeToResult(listData.toList().toString()) }
     )
